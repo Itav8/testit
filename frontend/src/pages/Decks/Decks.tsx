@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { Card } from "../../components/Card/Card";
+
+import "./Decks.css";
 
 export interface Deck {
   deckId?: number;
@@ -23,8 +26,6 @@ export const Decks = () => {
 
         if (decksResponse.ok) {
           const decksData = await decksResponse.json();
-          console.log("INSE", decksData);
-
           const updatedDeck = decksData.map((deck: DeckData) => {
             return {
               deckId: deck.id,
@@ -43,11 +44,13 @@ export const Decks = () => {
   }, []);
 
   return (
-    <div>
+    <>
       <h1 className="title">My Decks</h1>
-      {decks.map((deck, i) => {
-        return <h2 key={i}>{deck.deckName}</h2>;
-      })}
-    </div>
+      <div className="deck_container">
+        {decks.map((deck, i) => (
+          <Card key={i} title={deck.deckName} />
+        ))}
+      </div>
+    </>
   );
 };
