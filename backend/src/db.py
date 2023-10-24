@@ -18,6 +18,9 @@ def test_connection():
     conn.close()
 
 
+test_connection()
+
+
 def get_db():
     db = SessionLocal()
     try:
@@ -26,6 +29,3 @@ def get_db():
         print("Failed to connect to db")
     finally:
         db.close()
-
-
-test_connection()
