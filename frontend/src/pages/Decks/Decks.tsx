@@ -9,24 +9,24 @@ export interface Deck {
 export const Decks = () => {
   const [decks, seetDecks] = useState<Deck[]>([]);
 
-  // useEffect(() => {
-  const fetchDecks = async () => {
-    const getDecksUrl = `${import.meta.env.VITE_API_URL}/decks`;
+  useEffect(() => {
+    const fetchDecks = async () => {
+      const getDecksUrl = `${import.meta.env.VITE_API_URL}/decks`;
+      console.log("before try", getDecksUrl);
+      try {
+        const decksResponse = await fetch(getDecksUrl);
 
-    try {
-      const decksResponse = await fetch(getDecksUrl);
-
-      if (decksResponse.ok) {
-        const decksData = await decksResponse.json();
-        console.log("INSE", decksData);
-        seetDecks(decksData);
+        if (decksResponse.ok) {
+          const decksData = await decksResponse.json();
+          console.log("INSE", decksData);
+          seetDecks(decksData);
+        }
+      } catch (e) {
+        console.log("Error getting list of decks", e);
       }
-    } catch (e) {
-      console.log("Error getting list of decks", e);
-    }
-  };
-  fetchDecks();
-  // }, []);
+    };
+    fetchDecks();
+  }, []);
 
   console.log("DECJS", decks);
   return (
