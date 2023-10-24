@@ -3,7 +3,9 @@ import "./Decks.css";
 export const Decks = () => {
   return (
     <>
-      <div>DECKS</div>
+      <div>
+        <h1 className="title">My Decks</h1>
+      </div>
     </>
   );
 };
