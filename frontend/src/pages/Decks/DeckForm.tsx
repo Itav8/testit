@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-interface DeckFormProps {
+export interface DeckFormProps {
   onSubmit: () => void;
 }
 

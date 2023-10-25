@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FlashCards } from "../../components/FlashCards/FlashCards";
+import { CardsForm } from "./CardsForm";
+import { Modal } from "../../components/Modal/Modal";
 
 export interface DeckOfCards {
   id: number;
@@ -20,6 +22,7 @@ export const Cards = () => {
   const deckId = pathName[pathName.length - 1];
   const [deck, setDeck] = useState<DeckOfCards[]>([]);
   const [cards, setCards] = useState<Cards[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchDeck = async (deckId: number) => {
     const getDeckUrl = `${import.meta.env.VITE_API_URL}/decks/${deckId}`;
@@ -46,13 +49,29 @@ export const Cards = () => {
       <div>
         <h1>{deck.deck_name}</h1>
       </div>
+      <div className="card_create__button">
+        <button onClick={() => setIsModalOpen(true)}>+ Create</button>
+        {isModalOpen ? (
+          <Modal
+            open={isModalOpen}
+            onClose={() => {
+              fetchDeck(Number(deckId));
+              setIsModalOpen(false);
+            }}
+          >
+            <CardsForm
+              deckId={Number(deckId)}
+              onSubmit={() => {
+                fetchDeck(Number(deckId));
+                setIsModalOpen(false);
+              }}
+            />
+          </Modal>
+        ) : null}
+      </div>
       <div>
         {cards.map((card, i) => (
-          <FlashCards
-            key={i}
-            question={card.question}
-            answer={card.answer}
-          />
+          <FlashCards key={i} question={card.question} answer={card.answer} />
         ))}
       </div>
     </>

@@ -66,6 +66,7 @@ def delete_deck(db: Session, deck_id: int):
 # CARDS
 def create_card(db: Session, card: schemas.CardBase):
     try:
+        print("jksfjs", card)
         new_card = models.Card(**card.model_dump())
         db.add(new_card)
         db.commit()
