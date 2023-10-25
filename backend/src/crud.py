@@ -76,6 +76,17 @@ def create_card(db: Session, card: schemas.CardBase):
         raise e
 
 
+def get_list_of_cards(db: Session):
+    try:
+        cards = db.query(models.Card)
+
+        if cards:
+            return cards
+        return {"Message": "Card list is empty"}
+    except Exception as e:
+        raise e
+
+
 def delete_card(db: Session, card_id: int):
     try:
         current_card = db.query(models.Card).get(card_id)

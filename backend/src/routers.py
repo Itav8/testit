@@ -64,6 +64,15 @@ def created_card(card: schemas.CardBase, db: Session = Depends(get_db)):
     return new_card
 
 
+@router.get("/cards", response_model=list[schemas.Card])
+def get_cards(db: Session = Depends(get_db)):
+    cards = crud.get_list_of_cards(db)
+
+    if cards is Exception:
+        return HTTPException(status_code=404, detail="Unable to find cards")
+    return cards
+
+
 @router.delete("/cards/{card_id}", response_model={})
 def deleted_card(card_id: int, db: Session = Depends(get_db)):
     deleted_card = crud.delete_card(db, card_id)
