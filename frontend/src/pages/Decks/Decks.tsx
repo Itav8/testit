@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Card } from "../../components/Card/Card";
 import { Modal } from "../../components/Modal/Modal";
+import { DeckForm } from "./DeckForm";
 
 import "./Decks.css";
-import { DeckForm } from "./DeckForm";
 
 export interface Deck {
   deckId?: number;
