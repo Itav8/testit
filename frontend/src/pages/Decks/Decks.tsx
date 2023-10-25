@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Card } from "../../components/Card/Card";
+import { Modal } from "../../components/Modal/Modal";
 
 import "./Decks.css";
+import { DeckForm } from "./DeckForm";
 
 export interface Deck {
   deckId?: number;
@@ -17,6 +19,7 @@ export interface DeckData {
 
 export const Decks = () => {
   const [decks, setDecks] = useState<Deck[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchDecks = async () => {
@@ -50,6 +53,14 @@ export const Decks = () => {
         {decks.map((deck, i) => (
           <Card key={i} title={deck.deckName} />
         ))}
+      </div>
+      <div className="deck_create__button">
+        <button onClick={() => setIsModalOpen(true)}>+ Create</button>
+        {isModalOpen ? (
+          <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            <DeckForm onSubmit={() => setIsModalOpen(false)} />
+          </Modal>
+        ) : null}
       </div>
     </>
   );
