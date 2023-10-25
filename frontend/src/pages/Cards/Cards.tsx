@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { FlashCards } from "../../components/FlashCards/FlashCards";
 
 export interface DeckOfCards {
   id: number;
@@ -35,11 +36,11 @@ export const Cards = () => {
       console.log("Error getting deck", error);
     }
   };
-  console.log(deck);
+
   useEffect(() => {
     fetchDeck(Number(deckId));
   }, [deckId]);
-  
+
   return (
     <>
       <div>
@@ -47,10 +48,11 @@ export const Cards = () => {
       </div>
       <div>
         {cards.map((card, i) => (
-          <div key={i}>
-            <h3>Question: {card.question}</h3>
-            <h4>Answer: {card.answer}</h4>
-          </div>
+          <FlashCards
+            key={i}
+            question={card.question}
+            answer={card.answer}
+          />
         ))}
       </div>
     </>
