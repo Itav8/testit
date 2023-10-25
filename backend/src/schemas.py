@@ -9,7 +9,7 @@ class CardBase(BaseModel):  # In
 
 
 class Card(CardBase):  # Out
-    card_id: int
+    id: int
     datetime_created: datetime
 
     class Config:

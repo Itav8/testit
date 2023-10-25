@@ -53,13 +53,25 @@ def delete_deck(db: Session, deck_id: int):
 
 
 # CARDS
-# def create_card(db: Session, card: schemas.CardBase, deck_id: int):
-#     try:
-#         new_card = models.Card(**card.model_dump())
-#         db.add(new_card)
-#         db.commit()
-#         db.refresh(new_card)
+def create_card(db: Session, card: schemas.CardBase):
+    try:
+        new_card = models.Card(**card.model_dump())
+        db.add(new_card)
+        db.commit()
+        db.refresh(new_card)
 
-#         return new_card
-#     except Exception as e:
-#         raise e
+        return new_card
+    except Exception as e:
+        raise e
+
+
+def delete_card(db: Session, card_id: int):
+    try:
+        current_card = db.query(models.Card).get(card_id)
+        if current_card:
+            db.delete(current_card)
+            db.commit()
+            return {"Message": "Card deleted successfully"}
+        return {"Message": "Card not found"}
+    except Exception as e:
+        raise e

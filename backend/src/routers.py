@@ -46,10 +46,19 @@ def deleted_deck(deck_id: int, db: Session = Depends(get_db)):
 
 
 # CARDS
-# @router.post("/cards/{deck_id}", response_model=schemas.Card)
-# def created_card(card: schemas.CardBase, deck_id: int, db: Session = Depends(get_db)):
-#     new_card = crud.create_card(db, card, deck_id)
+@router.post("/cards", response_model=schemas.Card)
+def created_card(card: schemas.CardBase, db: Session = Depends(get_db)):
+    new_card = crud.create_card(db, card)
 
-#     if new_card is Exception:
-#         return HTTPException(status_code=404, detail="Unable to create card")
-#     return new_card
+    if new_card is Exception:
+        return HTTPException(status_code=404, detail="Unable to create card")
+    return new_card
+
+
+@router.delete("/cards/{card_id}", response_model={})
+def deleted_card(card_id: int, db: Session = Depends(get_db)):
+    deleted_card = crud.delete_card(db, card_id)
+
+    if deleted_card is Exception:
+        return HTTPException(status_code=404, detail="Unable to find card")
+    return {"Card deleted Successfully"}
