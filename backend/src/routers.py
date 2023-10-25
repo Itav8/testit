@@ -27,6 +27,15 @@ def get_decks(db: Session = Depends(get_db)):
     return decks
 
 
+@router.get("/decks/{deck_id}", response_model=schemas.Deck)
+def get_deck(deck_id: int, db: Session = Depends(get_db)):
+    deck = crud.get_deck(db, deck_id)
+
+    if deck is Exception:
+        return HTTPException(status_code=404, detail="Unable to find deck")
+    return deck
+
+
 @router.put("/decks/{deck_id}", response_model=schemas.Deck)
 def updated_deck(deck_id: int, deck: schemas.DeckBase, db: Session = Depends(get_db)):
     updated_deck = crud.update_deck(db, deck_id, deck)

@@ -26,6 +26,17 @@ def get_list_of_decks(db: Session):
         raise e
 
 
+def get_deck(db: Session, deck_id: int):
+    try:
+        deck = db.query(models.Deck).get(deck_id)
+
+        if deck:
+            return deck
+        return {"Message": "Deck not found"}
+    except Exception as e:
+        raise e
+
+
 def update_deck(db: Session, deck_id: int, deck: schemas.DeckBase):
     try:
         current_deck: models.Deck = db.query(models.Deck).get(deck_id)
