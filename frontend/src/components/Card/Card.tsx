@@ -3,7 +3,7 @@ import "./Card.css";
 interface CardInfoProps {
   title?: string;
   children?: React.ReactNode;
-  onClick?: () => void;
+  onDelete?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 export const Card = (props: CardInfoProps) => {
@@ -16,6 +16,9 @@ export const Card = (props: CardInfoProps) => {
               <h2 className="card__title">{props.title}</h2>
             ) : null}
           </div>
+        </div>
+        <div className="card__footer">
+          <button onClick={props.onDelete}>Delete</button>
         </div>
       </div>
     </>

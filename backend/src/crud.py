@@ -41,13 +41,14 @@ def update_deck(db: Session, deck_id: int, deck: schemas.DeckBase):
 
 
 def delete_deck(db: Session, deck_id: int):
+    print("huhhhhh")
     try:
         current_deck = db.query(models.Deck).get(deck_id)
-
+        print("current deck", current_deck)
         if current_deck:
             db.delete(current_deck)
             db.commit()
             return {"Message": "Deck deleted successfully"}
         return {"Message": "Deck not found"}
     except Exception as e:
-        return {"Error": f"{e}"}
+        raise e

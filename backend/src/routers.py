@@ -37,8 +37,9 @@ def updated_deck(deck_id: int, deck: schemas.DeckBase, db: Session = Depends(get
 
 @router.delete("/decks/{deck_id}", response_model={})
 def deleted_deck(deck_id: int, db: Session = Depends(get_db)):
-    deleted_deck = crud.delete_deck(deck_id, db)
+    print("delete", deck_id)
+    deleted_deck = crud.delete_deck(db, deck_id)
 
-    if deleted_deck is None:
+    if deleted_deck is Exception:
         return HTTPException(status_code=404, detail="Unable to find deck")
     return {"Deck deleted Successfully"}

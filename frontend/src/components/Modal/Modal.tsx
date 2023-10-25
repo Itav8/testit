@@ -13,7 +13,7 @@ export const Modal = (props: ModalProps) => {
         </div>
         {props.children}
         {/* <div className="modal__footer">
-          <button onClick={props.onClose}>Close</button>
+          <button onClick={props.onDelete}>Delete</button>
         </div> */}
       </div>
     </dialog>
