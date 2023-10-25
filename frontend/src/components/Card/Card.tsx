@@ -1,9 +1,11 @@
+import { NavLink } from "react-router-dom";
 import "./Card.css";
 
 interface CardInfoProps {
   title?: string;
   children?: React.ReactNode;
   onDelete?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  to?: string
 }
 
 export const Card = (props: CardInfoProps) => {
@@ -11,11 +13,13 @@ export const Card = (props: CardInfoProps) => {
     <>
       <div className="card">
         <div className="card_content">
-          <div className="card_title">
-            {props.title ? (
-              <h2 className="card__title">{props.title}</h2>
-            ) : null}
-          </div>
+          <NavLink to={props.to  ?? ''}>
+            <div className="card_title">
+              {props.title ? (
+                <h2 className="card__title">{props.title}</h2>
+              ) : null}
+            </div>
+          </NavLink>
         </div>
         <div className="card__footer">
           <button onClick={props.onDelete}>Delete</button>
