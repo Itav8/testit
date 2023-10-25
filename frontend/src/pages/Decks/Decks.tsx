@@ -81,7 +81,7 @@ export const Decks = () => {
           <Card
             key={i}
             title={deck.deckName}
-            to={`deck/${deck.deckId}`}
+            to={`deck/${deck.deckName}`}
             onDelete={(e) => {
               deck.deckId && handleDelete(e, deck.deckId);
             }}

@@ -9,7 +9,7 @@ export const routes = [
     name: "Decks",
   },
   {
-    path: "/deck/:id",
+    path: "/deck/:name",
     element: <Cards />,
     name: "Cards",
   },
