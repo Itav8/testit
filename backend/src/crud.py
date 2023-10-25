@@ -5,14 +5,13 @@ import schemas
 
 def create_deck(db: Session, deck_name: schemas.DeckBase):
     try:
-        print("INSIDE", deck_name)
         new_deck = models.Deck(**deck_name.model_dump())
         db.add(new_deck)
         db.commit()
         db.refresh(new_deck)
         return new_deck
     except Exception as e:
-        return {"Error": f"{e}"}
+        raise e
 
 
 def get_list_of_decks(db: Session):
@@ -23,7 +22,7 @@ def get_list_of_decks(db: Session):
             return decks
         return {"Message": "Deck list is empty"}
     except Exception as e:
-        return {"Error": f"{e}"}
+        raise e
 
 
 def update_deck(db: Session, deck_id: int, deck: schemas.DeckBase):
@@ -37,14 +36,12 @@ def update_deck(db: Session, deck_id: int, deck: schemas.DeckBase):
             return current_deck
         return {"Message": "Deck not found"}
     except Exception as e:
-        return {"Error": f"{e}"}
+        raise e
 
 
 def delete_deck(db: Session, deck_id: int):
-    print("huhhhhh")
     try:
         current_deck = db.query(models.Deck).get(deck_id)
-        print("current deck", current_deck)
         if current_deck:
             db.delete(current_deck)
             db.commit()
