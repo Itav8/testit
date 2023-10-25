@@ -8,6 +8,7 @@ import crud
 router = APIRouter()
 
 
+# DECK
 @router.post("/decks", response_model=schemas.Deck)
 def created_deck(deck_name: schemas.DeckBase, db: Session = Depends(get_db)):
     new_deck = crud.create_deck(db, deck_name)
@@ -42,3 +43,13 @@ def deleted_deck(deck_id: int, db: Session = Depends(get_db)):
     if deleted_deck is Exception:
         return HTTPException(status_code=404, detail="Unable to find deck")
     return {"Deck deleted Successfully"}
+
+
+# CARDS
+@router.post("/cards", response_model=schemas.Card)
+def created_card(card: schemas.CardBase, db: Session = Depends(get_db)):
+    new_card = crud.create_card(db, card)
+
+    if new_card is Exception:
+        return HTTPException(status_code=404, detail="Unable to create card")
+    return new_card

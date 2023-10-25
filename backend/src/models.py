@@ -26,6 +26,7 @@ class Card(Base):
     id = Column(Integer, primary_key=True, nullable=False)
     question = Column(String, nullable=False)
     answer = Column(String, nullable=False)
+    datetime_created = Column(DateTime, server_default=func.now())
 
 
 class CardToDeck(Base):

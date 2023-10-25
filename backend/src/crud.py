@@ -3,6 +3,7 @@ import models
 import schemas
 
 
+# DECK
 def create_deck(db: Session, deck_name: schemas.DeckBase):
     try:
         new_deck = models.Deck(**deck_name.model_dump())
@@ -47,5 +48,17 @@ def delete_deck(db: Session, deck_id: int):
             db.commit()
             return {"Message": "Deck deleted successfully"}
         return {"Message": "Deck not found"}
+    except Exception as e:
+        raise e
+
+
+# CARDS
+def create_card(db: Session, card: schemas.CardBase):
+    try:
+        new_card = models.Card(**card.model_dump())
+        db.add(new_card)
+        db.commit()
+        db.refresh(new_card)
+        return new_card
     except Exception as e:
         raise e
