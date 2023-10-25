@@ -28,7 +28,7 @@ export const Decks = () => {
 
       if (decksResponse.ok) {
         const decksData = await decksResponse.json();
-        const updatedDeck = decksData.map((deck: DeckData) => {
+        const deckTransformed = decksData.map((deck: DeckData) => {
           return {
             deckId: deck.id,
             deckName: deck.deck_name,
@@ -36,7 +36,7 @@ export const Decks = () => {
           };
         });
 
-        setDecks(updatedDeck);
+        setDecks(deckTransformed);
       }
     } catch (e) {
       console.log("Error getting list of decks", e);
@@ -81,7 +81,7 @@ export const Decks = () => {
           <Card
             key={i}
             title={deck.deckName}
-            to={`deck/${deck.deckName}`}
+            to={`deck/${deck.deckId}`}
             onDelete={(e) => {
               deck.deckId && handleDelete(e, deck.deckId);
             }}
