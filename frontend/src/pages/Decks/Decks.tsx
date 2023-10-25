@@ -44,7 +44,7 @@ export const Decks = () => {
       }
     };
     fetchDecks();
-  }, []);
+  }, [decks]);
 
   return (
     <>
