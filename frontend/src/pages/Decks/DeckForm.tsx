@@ -17,7 +17,7 @@ export const DeckForm = (props: DeckFormProps) => {
     const deckUrl = `${import.meta.env.VITE_API_URL}/decks`;
 
     const decksData = {
-      deckName: deckForm,
+      deck_name: deckForm,
     };
 
     const fetchConfig = {
