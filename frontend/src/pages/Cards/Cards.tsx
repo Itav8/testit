@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FlashCards } from "../../components/FlashCards/FlashCards";
 import { CardsForm } from "./CardsForm";
 import { Modal } from "../../components/Modal/Modal";
@@ -23,6 +23,7 @@ export const Cards = () => {
   const [deck, setDeck] = useState<DeckOfCards[]>([]);
   const [cards, setCards] = useState<Cards[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate()
 
   const fetchDeck = async (deckId: number) => {
     const getDeckUrl = `${import.meta.env.VITE_API_URL}/decks/${deckId}`;
@@ -43,6 +44,10 @@ export const Cards = () => {
   useEffect(() => {
     fetchDeck(Number(deckId));
   }, [deckId]);
+
+  const handleClick = () => {
+    navigate(`/test/deck/${deckId}`);
+  };
 
   return (
     <>
@@ -68,6 +73,9 @@ export const Cards = () => {
             />
           </Modal>
         ) : null}
+      </div>
+      <div>
+        <button onClick={handleClick}>Test</button>
       </div>
       <div>
         {cards.map((card, i) => (
